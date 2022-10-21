@@ -8,17 +8,19 @@
 import UIKit
 
 class AddListViewController: UIViewController {
+    
     //テキスト
     @IBOutlet weak var addText: UITextField!
+    //空テキスト
+    @IBOutlet weak var emptyText: UILabel!
+    //入力したリストを格納する配列
     var taskArray: [String] = []
-    
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         let userDefaults = UserDefaults.standard
-        
         //"add"というキーで保存された値がなにかある -> 値をtaskArrayへ
         if userDefaults.object(forKey: "add") != nil {
             taskArray = userDefaults.object(forKey: "add") as! [String]
@@ -29,14 +31,26 @@ class AddListViewController: UIViewController {
     //追加ボタン
     @IBAction func addTask(_ sender: Any) {
         //(UserDefaults.standard)小さなデータベース
-        let userDefaults = UserDefaults.standard //そのままだと長いので変数にいれる
+        let userDefaults = UserDefaults.standard
         
-        taskArray.append(addText.text!) //TextFieldで記入されたテキストを入れる
+        //テキストが空でなければ
+        if addText.text != "" {
+            taskArray.append(addText.text!)
+            //キー"add"で配列をUserDefaultsに保存
+            userDefaults.set(taskArray, forKey: "add")
+            //1つ前の画面に戻る
+            self.navigationController?.popViewController(animated: true)
+        } else {
+            //0.5秒後に文字を入力してくださいを表示する
+            Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) {_ in
+                self.emptyText.text = "文字を入力してください"
+                //3秒後に文字を消す
+                Timer.scheduledTimer(withTimeInterval: 3, repeats: false) {_ in
+                    self.emptyText.text = ""
+                }
+            }
+        }
         
-        //上書き保存になる
-        userDefaults.set(taskArray, forKey: "add") //キー"add"で配列をUserDefaultsに保存
-        
-        self.navigationController?.popViewController(animated: true) //1つ前の画面に戻る
     }
     
     /*

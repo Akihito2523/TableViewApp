@@ -90,7 +90,7 @@
         <!--Navigation Controller-->
         <scene sceneID="dX7-sN-EDf">
             <objects>
-                <navigationController id="3yd-Sy-RJD" sceneMemberID="viewController">
+                <navigationController hidesBarsWhenKeyboardAppears="YES" id="3yd-Sy-RJD" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="734-dl-XQU">
                         <rect key="frame" x="0.0" y="47" width="390" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -136,12 +136,22 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="QvX-XZ-NKE">
-                        <barButtonItem key="rightBarButtonItem" title="Add" id="BbA-dE-3r8">
-                            <connections>
-                                <segue destination="4ax-iw-eEB" kind="show" id="B5Z-ia-e6F"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem title="追加" id="BbA-dE-3r8">
+                                <connections>
+                                    <segue destination="4ax-iw-eEB" kind="show" id="B5Z-ia-e6F"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="編集" id="n21-Kw-NQc">
+                                <connections>
+                                    <action selector="editButtonClicked:" destination="fgH-8b-WRq" id="V5h-PM-2BH"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
+                    <connections>
+                        <outlet property="editButton" destination="n21-Kw-NQc" id="MKY-dy-Apa"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="c8s-lt-Tat" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -169,6 +179,14 @@
                                     <action selector="addTask:" destination="4ax-iw-eEB" eventType="touchUpInside" id="5V0-KT-dxu"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="suH-u6-awz">
+                                <rect key="frame" x="50" y="197" width="290" height="33"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="tintColor" systemColor="systemRedColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <color key="textColor" systemColor="systemPinkColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="iQz-1L-deF"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -183,11 +201,12 @@
                     <navigationItem key="navigationItem" id="v9q-ZJ-ROU"/>
                     <connections>
                         <outlet property="addText" destination="ND9-rh-7j8" id="gfh-8i-dbu"/>
+                        <outlet property="emptyText" destination="suH-u6-awz" id="dT5-BT-H34"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XMs-rD-CJ3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2725" y="20"/>
+            <point key="canvasLocation" x="2723.0769230769229" y="19.90521327014218"/>
         </scene>
     </scenes>
     <resources>
@@ -196,6 +215,12 @@
         </systemColor>
         <systemColor name="systemGray3Color">
             <color red="0.7803921568627451" green="0.7803921568627451" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemPinkColor">
+            <color red="1" green="0.17647058823529413" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemRedColor">
+            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
